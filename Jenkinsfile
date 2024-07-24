@@ -58,19 +58,35 @@ pipeline {
         // }
         stage('Build') {
           steps {
-            echo 'next building the application...  now....'
+            echo 'next building the application...  now.... 에러 나니까 root 경로를 빌드 dist로 바꾸자'
+            echo 'next building the application...  now..../var/lib/jenkins/workspace/vue3/dist '
             sh 'npm run build'
           }
         }
-        stage('deploy') {
-          steps {
-            echo 'next deploying the application...  dir /var/www/vue3'
-            // sh 'cp dist/* /var/www/vue3'    
-            // Permission denied
-            sh 'sudo rm -rf /var/www/vue3/*'
-            sh 'sudo cp -a dist/. /var/www/vue3'
-          }
-        }
+        // stage('deploy') {
+        //   steps {
+        //     echo 'next deploying the application...  dir /var/www/vue3'
+        //     // sh 'cp dist/* /var/www/vue3'    
+        //     // Permission denied
+        //     sh 'sudo rm -rf /var/www/vue3/*'
+        //     sh 'sudo cp -rf dist/* /var/www/vue3'
+        //   }
+        // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // stage('run') {
         //   steps {
         //     echo 'next building the application...  now....'
