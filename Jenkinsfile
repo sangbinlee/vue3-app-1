@@ -13,6 +13,8 @@ pipeline {
           steps {
             echo 'next building the application...'
             echo 'by https://jenkins.sodi9.store/github-webhook/'
+            echo 'by https://jenkins.sodi9.store/github-webhook/'
+            echo 'by https://jenkins.sodi9.store/github-webhook/'
             // git 'https://gitlab.com/chiminyau/ci-test.git'
           }
         }
