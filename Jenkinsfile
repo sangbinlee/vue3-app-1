@@ -67,7 +67,8 @@ pipeline {
             echo 'next deploying the application...  dir /var/www/vue3'
             // sh 'cp dist/* /var/www/vue3'    
             // Permission denied
-            sh 'cp -a dist/. /var/www/vue3'
+            sh 'sudo rm -rf /var/www/vue3/*'
+            sh 'sudo cp -a dist/. /var/www/vue3'
           }
         }
         // stage('run') {
