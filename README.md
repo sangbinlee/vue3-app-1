@@ -100,7 +100,6 @@ npm run lint
 
 # preview - 운영서버
 
-
     server {
         server_name vite.sodi9.store;
         root /var/www/vite;
@@ -143,12 +142,7 @@ npm run lint
 
     }
 
-
-
-
-
 # dist 위치를 nginx root로 만드는 방식 - 개발서버 테스트용.
-
 
     # vue3 block to proxy requests to Jenkins running on port 8081
 
@@ -174,3 +168,16 @@ npm run lint
         include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
     }
+
+# port 정보
+
+    default
+    sodi9.store
+    8080 jenkins.sodi9.store
+    3000 nuxt.sodi9.store
+    3001 dashboard.sodi9.store
+    3002 sales.sodi9.store
+    3003 next.sodi9.store
+    3004 vite.sodi9.store
+    3005 landing.sodi9.store
+    3006 vue3.sodi9.store
