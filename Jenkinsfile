@@ -63,6 +63,24 @@ pipeline {
             sh 'npm run build'
           }
         }
+
+
+        stage('run') {
+          steps {
+            echo 'vue3 building the application...  now....'
+            // sh 'npm run dev'
+            sh 'pm2 restart "vue3" || pm2 start "npm run preview" --name vue3'
+          }
+        } 
+
+
+
+
+
+
+
+
+
         // stage('deploy') {
         //   steps {
         //     echo 'vue3 deploying the application...  dir /var/www/vue3'
@@ -87,13 +105,6 @@ pipeline {
 
 
 
-        // stage('run') {
-        //   steps {
-        //     echo 'vue3 building the application...  now....'
-        //     // sh 'npm run dev'
-        //     sh 'pm2 restart "vue3" || pm2 start "npm run start" --name vue3'
-        //   }
-        // } 
         // stage('test') {
         //     steps {
         //         echo 'vue3 testing the application...'

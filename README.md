@@ -97,3 +97,80 @@ npm run lint
     ➜  Local:   http://localhost:5173/
     ➜  Network: use --host to expose
     ➜  press h + enter to show help
+
+# preview - 운영서버
+
+
+    server {
+        server_name vite.sodi9.store;
+        root /var/www/vite;
+        index index.html;
+
+        # location / {
+        #        try_files $uri $uri/ =404;
+        #}
+
+        listen [::]:443 ssl ipv6only=on; # managed by Certbot
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/vite.sodi9.store/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/vite.sodi9.store/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+        location / {
+
+                proxy_set_header        Host $host;
+                proxy_set_header        X-Real-IP $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header        X-Forwarded-Proto $scheme;
+
+                # Fix the "It appears that your reverse proxy set up is broken" error.
+                proxy_pass          http://127.0.0.1:3004;
+                proxy_read_timeout  90;
+        }
+    }
+
+    server {
+            if ($host = vite.sodi9.store) {
+                    return 301 https://$host$request_uri;
+            } # managed by Certbot
+
+
+            listen 80;
+            listen [::]:80;
+            server_name vite.sodi9.store;
+            return 301 https://$host$request_uri;
+
+    }
+
+
+
+
+
+# dist 위치를 nginx root로 만드는 방식 - 개발서버 테스트용.
+
+
+    # vue3 block to proxy requests to Jenkins running on port 8081
+
+    server {
+        if ($host = vue3.sodi9.store) {
+                    return 301 https://$host$request_uri;
+        } # managed by Certbot
+
+        listen 80;
+        server_name vue3.sodi9.store;
+        return 404;
+    }
+
+    server {
+        root /var/lib/jenkins/workspace/vue3/dist;
+        #root /var/www/vue3;
+        index index.html;
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        server_name vue3.sodi9.store;
+        ssl_certificate /etc/letsencrypt/live/vue3.sodi9.store/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/vue3.sodi9.store/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    }
