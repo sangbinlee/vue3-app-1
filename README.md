@@ -181,3 +181,5 @@ npm run lint
     3004 vite.sodi9.store
     3005 landing.sodi9.store
     3006 vue3.sodi9.store
+
+# server https
